@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>TestNet：TNC Faucet</title>
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+		<!--[if IE]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-sm bg-light">
+			<img src="img/logo.png" style="width: 140px;padding: 8px;">
+			<h3>TNC Faucet On NEO TestNet</h3>
+		</nav>
+		<div class="container">
+		  <div class="card">
+		    <div class="card-body">
+				<h4 class="card-title">🚿 Faucet</h4>
+				<p class="card-text">address: <span id="faucetAddress">AGgZna4kbTXPm16yYZyG6RyrQz2Sqotno6</span></p>
+				<p class="card-text">balance: <span id="faucetBalance">...</span></p>
+				<button type="button" class="btn btn-primary" id="requestBtn">request 10 TNC from faucet</button>
+		    </div>
+		  </div>
+		</div>
+		<div class="container">
+		  <div class="card">
+		    <div class="card-body">
+				<h4 class="card-title">👦 User</h4>			
+				<span class="input input--hoshi" style="margin: 0;">
+					<input class="input__field input__field--hoshi" type="text" id="userAddress" />
+					<label class="input__label input__label--hoshi" for="userAddress">
+						<span class="input__label-content input__label-content--hoshi">address</span>
+					</label>
+				</span>
+				<p class="card-text">balance: <span id="userBalance">...</span></p>
+		    </div>
+		  </div>
+		</div>
+		<div class="container">
+		  <div class="card">
+		    <div class="card-body">
+				<h4 class="card-title">📄 Transactions ID</h4>
+				<p class="card-text" id="transactions">...</p>
+		    </div>
+		  </div>
+		</div>
+		<div class="container container-success" style="display: none;"><div class="alert alert-success"></div></div>
+		<div class="container container-danger" style="display: none;"><div class="alert alert-danger"></div></div>
+
+		<script src="js/classie.js"></script>
+		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+		<script src="js/main.js"></script>
+		<script>
+			(function() {
+				// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+				if (!String.prototype.trim) {
+					(function() {
+						// Make sure we trim BOM and NBSP
+						var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+						String.prototype.trim = function() {
+							return this.replace(rtrim, '');
+						};
+					})();
+				}
+
+				[].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+					// in case the input is already filled..
+					if( inputEl.value.trim() !== '' ) {
+						classie.add( inputEl.parentNode, 'input--filled' );
+					}
+
+					// events:
+					inputEl.addEventListener( 'focus', onInputFocus );
+					inputEl.addEventListener( 'blur', onInputBlur );
+				} );
+
+				function onInputFocus( ev ) {
+					classie.add( ev.target.parentNode, 'input--filled' );
+				}
+
+				function onInputBlur( ev ) {
+					if( ev.target.value.trim() === '' ) {
+						classie.remove( ev.target.parentNode, 'input--filled' );
+					}
+				}
+			})();
+		</script>
+	</body>
+</html>
