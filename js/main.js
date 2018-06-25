@@ -1,3 +1,5 @@
+var version = "v0.1";
+
 var getFaucetBalance = function(){
   $.ajax({
     url: "http://47.254.64.251:21332",
@@ -134,4 +136,5 @@ $("#userBalance").change(function(){
 // On load
 $(function() {
   getFaucetBalance();
+  console.log("Version: " + version);
 });
